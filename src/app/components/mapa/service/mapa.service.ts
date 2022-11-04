@@ -17,7 +17,7 @@ export class MapaService {
         const lon = c.geometry.coordinates[0];
         const lat = c.geometry.coordinates[1];
         const marker = L.marker([lat, lon]);
-        marker.bindPopup(this.popupService.makeCapitalPopup(c.properties));
+        marker.bindPopup(this.popupService.makeCapitalPopup(c.properties)).on('click',(e) => {alert(e); console.log(e)});
         marker.addTo(map);
       }
     });
@@ -35,6 +35,22 @@ export class MapaService {
         circle.addTo(map);
       }
     });
+  }
+
+  markerClick(map: L.Map): void {
+    this.http.get(this.capitals).subscribe((res: any) => {
+      for (const c of res.features) {
+        const lon = c.geometry.coordinates[0];
+        const lat = c.geometry.coordinates[1];
+        const market = new L.Marker([lat,lon]).on('click', MapaService.markerOnClick);
+        market.addTo(map);
+      }
+    });
+  }
+
+  static markerOnClick(e: any)
+  {
+    alert("hi. you clicked the marker at " + e.latlng);
   }
 
   static scaledRadius(val: number, maxVal: number): number {

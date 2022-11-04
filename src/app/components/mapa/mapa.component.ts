@@ -44,6 +44,7 @@ export class MapaComponent implements AfterViewInit {
     });
 
     tiles.addTo(this.map);
+
   }
 
   private highlightFeature(e: any) {

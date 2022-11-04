@@ -1,20 +1,19 @@
-import { NgModule } from '@angular/core';
+import { MapaModule } from './components/mapa/mapa.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MapaComponent } from './components/mapa/mapa.component';
-import { MapaModule } from './components/mapa/mapa.module';
 
 @NgModule({
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
-    AppComponent,
-    MapaComponent
+    AppComponent
   ],
   imports: [
-    MapaModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MapaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

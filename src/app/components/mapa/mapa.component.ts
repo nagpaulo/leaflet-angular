@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
 import { MapaService } from './service/mapa.service';
 import { ShapeService } from './service/shape.service';
 
@@ -29,7 +30,11 @@ export class MapaComponent implements AfterViewInit {
   private map: any;
   private states: any;
 
-  constructor( private service: MapaService, private shapeService: ShapeService) { }
+  constructor(
+    private service: MapaService,
+    private shapeService: ShapeService,
+    private dialogService: DialogService
+  ) { }
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -94,12 +99,11 @@ export class MapaComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initMap();
-    this.service.makeCapitalMarkers(this.map);
+    this.service.makeCapitalMarkers(this.map, this.dialogService);
     //this.service.makeCapitalCircleMarkers(this.map);
     this.shapeService.getStateShapes().subscribe(states => {
       this.states = states;
       this.initStatesLayer();
     });
   }
-
 }
